@@ -1,12 +1,22 @@
 const http = require("http");
 const https = require("https");
 
-const createResponseObj = require("./create-response-obj");
 const getRequestOptions = require("./get-request-options");
 const stringifyBody = require("./stringify-body");
+const transformResponse = require("./transform-response");
 
-const request = (url, { encoding, ...requestOptions }) => {
-  const options = getRequestOptions({ url, ...requestOptions });
+/**
+ * Send HTTP request.
+ *
+ * @param {String} url
+ * @param {Object} options.body
+ * @param {Boolean} options.json
+ * @param {String} options.encoding
+ * @param {Object} options.config
+ * @return {Promise}
+ */
+const sendRequest = (url, { body, json = false, encoding, ...config }) => {
+  const options = getRequestOptions(url, { ...config });
 
   const client = options.protocol === "http:" ? http : https;
 
@@ -17,29 +27,30 @@ const request = (url, { encoding, ...requestOptions }) => {
       response.on("data", chunk => buffers.push(chunk));
 
       response.on("end", () => {
-        const responseObj = getRequestOptions(response, { buffers, encoding });
+        const resObj = transformResponse(response, { buffers, encoding });
 
         if (response.statusCode >= 400) {
-          const error = new Error(responseObj.statusMessage);
-          error.response = responseObj;
+          const error = new Error(resObj.statusMessage);
+
+          error.response = resObj;
 
           return reject(error);
         }
 
-        resolve(responseObj);
+        resolve(resObj);
       });
     });
 
     request.on("error", error => reject(error));
 
-    const body = stringifyBody(options);
+    const data = stringifyBody(body, { json });
 
-    if (body !== null) {
-      request.write(body);
+    if (data !== null) {
+      request.write(data);
     }
 
     request.end();
   });
 };
 
-module.exports = request;
+module.exports = sendRequest;

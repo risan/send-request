@@ -1,8 +1,8 @@
 const isEmpty = require("@risan/is-empty");
 
 const hasProtocol = require("./has-protocol");
+const isNotEmptyObj = require("./is-not-empty-obj");
 const mergeAuthOption = require("./merge-auth-option");
-const setupHeadersOption = require("./setup-headers-option");
 
 /**
  * Parse the given URL string.
@@ -21,22 +21,17 @@ const parseUrl = url => {
 /**
  * Get request options.
  *
- * @param {String} options.url
+ * @param {String} url
  * @param {String} options.method
- * @param {Object} options.data
- * @param {Boolean} options.json
  * @param {Object} options.headers
- * @param {Object} auth}
+ * @param {Object} auth
  * @return {Object}
  */
-const getRequestOptions = ({
-  url,
+const getRequestOptions = (url, {
   method = "GET",
-  data,
-  json = false,
-  headers = {},
+  headers,
   auth
-}) => {
+} = {}) => {
   const {
     protocol,
     username,
@@ -50,13 +45,13 @@ const getRequestOptions = ({
   const path = `${pathname}${search}`;
   const portNumber = parseInt(port, 10);
   const authOption = mergeAuthOption({ username, password, auth });
-  const headerOptions = setupHeadersOption({ data, json, headers });
 
   const config = {
     protocol,
     hostname,
     path,
-    method: method.toUpperCase()
+    method: method.toUpperCase(),
+    headers: isNotEmptyObj(headers) ? headers : {}
   };
 
   if (!isEmpty(portNumber)) {
@@ -65,10 +60,6 @@ const getRequestOptions = ({
 
   if (authOption !== null) {
     config.auth = authOption;
-  }
-
-  if (!isEmpty(headerOptions)) {
-    config.headers = headerOptions;
   }
 
   return config;
