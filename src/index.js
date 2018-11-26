@@ -1,8 +1,9 @@
 const http = require("http");
 const https = require("https");
+const isEmpty = require("@risan/is-empty");
 
 const getRequestOptions = require("./get-request-options");
-const stringifyBody = require("./stringify-body");
+const parseRequestBody = require("./parse-request-body");
 const transformResponse = require("./transform-response");
 
 /**
@@ -15,41 +16,48 @@ const transformResponse = require("./transform-response");
  * @param {Object} options.config
  * @return {Promise}
  */
-const sendRequest = (url, { body, json = false, encoding, ...config }) => {
-  const options = getRequestOptions(url, { ...config });
+const sendRequest = async (url, { body, json = false, encoding, ...config } = {}) => {
+  const {
+    stream, contentType, contentLength
+  } = await parseRequestBody(body, { json });
+
+  const options = getRequestOptions(url, {
+    ...config,
+    hasBody: !isEmpty(stream),
+    contentType,
+    contentLength
+  });
 
   const client = options.protocol === "http:" ? http : https;
 
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     const request = client.request(options, response => {
       const buffers = [];
 
       response.on("data", chunk => buffers.push(chunk));
 
       response.on("end", () => {
-        const resObj = transformResponse(response, { buffers, encoding });
+        const transformed = transformResponse(response, { buffers, encoding });
 
         if (response.statusCode >= 400) {
-          const error = new Error(resObj.statusMessage);
+          const error = new Error(transformed.statusMessage);
 
-          error.response = resObj;
+          error.response = transformed;
 
           return reject(error);
         }
 
-        resolve(resObj);
+        resolve(transformed);
       });
     });
 
     request.on("error", error => reject(error));
 
-    const data = stringifyBody(body, { json });
-
-    if (data !== null) {
-      request.write(data);
+    if (stream) {
+      stream.pipe(request);
+    } else {
+      request.end();
     }
-
-    request.end();
   });
 };
 

@@ -37,11 +37,14 @@
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-prettier": "^3.0.0",
+    "form-data": "^2.3.3",
     "jest": "^23.6.0",
+    "nock": "^10.0.2",
     "prettier": "^1.15.2"
   },
   "dependencies": {
     "@risan/is-empty": "^1.0.0",
-    "@risan/is-plain-obj": "^1.0.4"
+    "@risan/is-plain-obj": "^1.0.4",
+    "str-to-stream": "1.x"
   }
 }

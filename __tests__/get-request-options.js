@@ -48,3 +48,39 @@ test("it can extract the auth option from url", () => {
 
   expect(options).toHaveProperty("auth", "john:secret");
 });
+
+test("it sets content-type and content-length header if request body is present", () => {
+  const options = getRequestOptions("https://example.com", {
+    hasBody: true,
+    contentType: "application/json",
+    contentLength: 123,
+    headers: {
+      foo: "bar"
+    }
+  });
+
+  expect(options).toHaveProperty("headers", {
+    foo: "bar",
+    "content-type": "application/json",
+    "content-length": 123
+  });
+});
+
+test("it won't override the existing content-type and content-length headers", () => {
+  const options = getRequestOptions("https://example.com", {
+    hasBody: true,
+    contentType: "application/json",
+    contentLength: 123,
+    headers: {
+      foo: "bar",
+      "content-type": "application/x-www-form-urlencoded",
+      "content-length": 7
+    }
+  });
+
+  expect(options).toHaveProperty("headers", {
+    foo: "bar",
+    "content-type": "application/x-www-form-urlencoded",
+    "content-length": 7
+  });
+});

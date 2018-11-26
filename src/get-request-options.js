@@ -1,8 +1,19 @@
 const isEmpty = require("@risan/is-empty");
 
+const has = require("./has");
 const hasProtocol = require("./has-protocol");
 const isNotEmptyObj = require("./is-not-empty-obj");
 const mergeAuthOption = require("./merge-auth-option");
+
+/**
+ * Check if the given key is exists in the headers.
+ *
+ * @param {Object} headers
+ * @param {String} key
+ * @return {Boolean}
+ */
+const headersHas = (headers, key) =>
+  has(headers, key, { caseInsensitive: true });
 
 /**
  * Parse the given URL string.
@@ -25,12 +36,18 @@ const parseUrl = url => {
  * @param {String} options.method
  * @param {Object} options.headers
  * @param {Object} auth
+ * @param {Boolean} hasBody
+ * @param {String} contentType
+ * @param {Number} contentLength
  * @return {Object}
  */
 const getRequestOptions = (url, {
   method = "GET",
   headers,
-  auth
+  auth,
+  hasBody = false,
+  contentType,
+  contentLength
 } = {}) => {
   const {
     protocol,
@@ -60,6 +77,16 @@ const getRequestOptions = (url, {
 
   if (authOption !== null) {
     config.auth = authOption;
+  }
+
+  if (hasBody) {
+    if (!headersHas(config.headers, "content-type")) {
+      config.headers["content-type"] = contentType;
+    }
+
+    if (!headersHas(config.headers, "content-length")) {
+      config.headers["content-length"] = contentLength;
+    }
   }
 
   return config;

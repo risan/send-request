@@ -1,3 +1,19 @@
+const has = require("./has");
+
+/**
+ * Check if the content-type is JSON.
+ *
+ * @param {Object} headers
+ * @return {Boolean}
+ */
+const isJsonContentType = headers => {
+  if (!has(headers, "content-type")) {
+    return false;
+  }
+
+  return /application\/json/i.test(headers["content-type"])
+};
+
 /**
  * Transform response object.
  *
@@ -9,16 +25,20 @@
 const transformResponse = (
   response, { buffers = [], encoding = "utf8" } = {}
 ) => {
-  const { statusCode, statusMessage, getHeader, hasHeader } = response;
+  const { statusCode, statusMessage, headers } = response;
 
-  return {
+  const transformed = {
     statusCode,
     statusMessage,
-    getHeader,
-    hasHeader,
-    headers: response.getHeaders(),
+    headers,
     body: Buffer.concat(buffers).toString(encoding)
   };
+
+  if (isJsonContentType(headers)) {
+    transformed.json = JSON.parse(transformed.body);
+  }
+
+  return transformed;
 };
 
 module.exports = transformResponse;
