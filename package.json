@@ -1,7 +1,7 @@
 {
   "name": "send-request",
   "description": "Lightweight HTTP client for Node",
-  "version": "0.0.1-alpha",
+  "version": "1.0.0",
   "license": "MIT",
   "homepage": "https://github.com/risan/send-request#readme",
   "author": {
