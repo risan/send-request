@@ -1,3 +1,4 @@
+const { URL } = require("url");
 const isEmpty = require("@risan/is-empty");
 
 const has = require("./has");
