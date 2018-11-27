@@ -11,7 +11,7 @@ const isJsonContentType = headers => {
     return false;
   }
 
-  return /application\/json/i.test(headers["content-type"])
+  return /application\/json/i.test(headers["content-type"]);
 };
 
 /**
@@ -23,7 +23,8 @@ const isJsonContentType = headers => {
  * @return {Object}
  */
 const transformResponse = (
-  response, { buffers = [], encoding = "utf8" } = {}
+  response,
+  { buffers = [], encoding = "utf8" } = {}
 ) => {
   const { statusCode, statusMessage, headers } = response;
 

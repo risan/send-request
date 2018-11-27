@@ -26,9 +26,7 @@ const parseRequestBody = async (body = {}, { json = false } = {}) => {
   return {
     stream: strToStream(str),
     contentLength: Buffer.byteLength(str),
-    contentType: json
-      ? "application/json"
-      : "application/x-www-form-urlencoded"
+    contentType: json ? "application/json" : "application/x-www-form-urlencoded"
   };
 };
 

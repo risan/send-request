@@ -16,7 +16,7 @@ test("it can get request options from just a url", () => {
 test("it will use http if protocol is not set in the url", () => {
   const options = getRequestOptions("example.com");
 
-  expect(options).toHaveProperty("protocol", "http:")
+  expect(options).toHaveProperty("protocol", "http:");
 });
 
 test("it can override the http method", () => {
@@ -24,7 +24,7 @@ test("it can override the http method", () => {
     method: "post"
   });
 
-  expect(options).toHaveProperty("method", "POST")
+  expect(options).toHaveProperty("method", "POST");
 });
 
 test("it can receive headers option", () => {

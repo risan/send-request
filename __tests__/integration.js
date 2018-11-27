@@ -16,12 +16,13 @@ const mockServer = ({
   status = 200,
   body = "",
   headers = {}
-} = {}) => nock(url, {
+} = {}) =>
+  nock(url, {
     reqheaders: requestHeaders
   })
-  .intercept(path, method.toUpperCase(), requestBody)
-  .query(query)
-  .reply(status, body, headers);
+    .intercept(path, method.toUpperCase(), requestBody)
+    .query(query)
+    .reply(status, body, headers);
 
 test("it can send HTTP GET/POST/PUT/PATCH/DELETE request", async () => {
   let scope;
@@ -54,7 +55,7 @@ test("it can send HTTP GET/POST/PUT/PATCH/DELETE request", async () => {
 });
 
 test("it can send HTTPS request", async () => {
-  const scope =  mockServer({ url: "https://example.com" });
+  const scope = mockServer({ url: "https://example.com" });
 
   const response = await sendRequest("https://example.com");
 
@@ -104,12 +105,11 @@ test("response object must contains statusCode", async () => {
 
 test("it throws error when status code >= 400", async () => {
   let scope;
-  let response;
 
   try {
     scope = mockServer({ status: 400 });
     await sendRequest(URL);
-  } catch(error) {
+  } catch (error) {
     expect(scope.isDone()).toBe(true);
     expect(error.response).toHaveProperty("statusCode", 400);
   }
@@ -117,7 +117,7 @@ test("it throws error when status code >= 400", async () => {
   try {
     scope = mockServer({ status: 404 });
     await sendRequest(URL);
-  } catch(error) {
+  } catch (error) {
     expect(scope.isDone()).toBe(true);
     expect(error.response).toHaveProperty("statusCode", 404);
   }
@@ -125,7 +125,7 @@ test("it throws error when status code >= 400", async () => {
   try {
     scope = mockServer({ status: 500 });
     await sendRequest(URL);
-  } catch(error) {
+  } catch (error) {
     expect(scope.isDone()).toBe(true);
     expect(error.response).toHaveProperty("statusCode", 500);
   }
@@ -169,13 +169,13 @@ test("it can send form-urlencoded body", async () => {
     method: "POST",
     requestHeaders: {
       "content-type": "application/x-www-form-urlencoded",
-      "content-length": value => parseInt(value) > 0
+      "content-length": value => parseInt(value, 10) > 0
     },
     requestBody: qs.stringify(body)
   });
 
   const response = await sendRequest(URL, {
-    body: body,
+    body,
     method: "POST"
   });
 
@@ -190,13 +190,13 @@ test("it can send JSON body", async () => {
     method: "POST",
     requestHeaders: {
       "content-type": "application/json",
-      "content-length": value => parseInt(value) > 0
+      "content-length": value => parseInt(value, 10) > 0
     },
     requestBody: JSON.stringify(body)
   });
 
   const response = await sendRequest(URL, {
-    body: body,
+    body,
     json: true,
     method: "POST"
   });
@@ -213,9 +213,9 @@ test("it can send form-data body", async () => {
     method: "POST",
     requestHeaders: {
       "content-type": value => /^multipart\/form-data; boundary=/i.test(value),
-      "content-length": value => parseInt(value) > 0
+      "content-length": value => parseInt(value, 10) > 0
     },
-    requestBody: body => /foo/gmi.test(body)
+    requestBody: body => /foo/gim.test(body)
   });
 
   const response = await sendRequest(URL, {

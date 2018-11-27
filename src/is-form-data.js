@@ -12,10 +12,11 @@ const isFunction = value => typeof value === "function";
  * @param {Mixed} value
  * @return {Boolean}
  */
-const isFormData = value => typeof value === "object"
-  && isFunction(value.pipe)
-  && isFunction(value.append)
-  && isFunction(value.getBoundary)
-  && isFunction(value.getLength);
+const isFormData = value =>
+  typeof value === "object" &&
+  isFunction(value.pipe) &&
+  isFunction(value.append) &&
+  isFunction(value.getBoundary) &&
+  isFunction(value.getLength);
 
 module.exports = isFormData;

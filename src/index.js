@@ -16,10 +16,13 @@ const transformResponse = require("./transform-response");
  * @param {Object} options.config
  * @return {Promise}
  */
-const sendRequest = async (url, { body, json = false, encoding, ...config } = {}) => {
-  const {
-    stream, contentType, contentLength
-  } = await parseRequestBody(body, { json });
+const sendRequest = async (
+  url,
+  { body, json = false, encoding, ...config } = {}
+) => {
+  const { stream, contentType, contentLength } = await parseRequestBody(body, {
+    json
+  });
 
   const options = getRequestOptions(url, {
     ...config,
@@ -44,10 +47,10 @@ const sendRequest = async (url, { body, json = false, encoding, ...config } = {}
 
           error.response = transformed;
 
-          return reject(error);
+          reject(error);
+        } else {
+          resolve(transformed);
         }
-
-        resolve(transformed);
       });
     });
 

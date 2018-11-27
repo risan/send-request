@@ -41,14 +41,17 @@ const parseUrl = url => {
  * @param {Number} contentLength
  * @return {Object}
  */
-const getRequestOptions = (url, {
-  method = "GET",
-  headers,
-  auth,
-  hasBody = false,
-  contentType,
-  contentLength
-} = {}) => {
+const getRequestOptions = (
+  url,
+  {
+    method = "GET",
+    headers,
+    auth,
+    hasBody = false,
+    contentType,
+    contentLength
+  } = {}
+) => {
   const {
     protocol,
     username,

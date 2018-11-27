@@ -6,7 +6,7 @@ const util = require("util");
  * @param {FormData} form
  * @return {Object}
  */
-const parseFormData = async (form) => {
+const parseFormData = async form => {
   const contentLength = await util.promisify(form.getLength.bind(form))();
 
   return {

@@ -41,14 +41,17 @@ test("it can automatically convert response with JSON content type to object", (
   const data = { message: "hello world" };
   const body = JSON.stringify(data);
 
-  const transformed = transformResponse({
-    ...response,
-    headers: {
-      "content-type": "application/json"
+  const transformed = transformResponse(
+    {
+      ...response,
+      headers: {
+        "content-type": "application/json"
+      }
+    },
+    {
+      buffers: [Buffer.from(body)]
     }
-  }, {
-    buffers: [Buffer.from(body)]
-  });
+  );
 
   expect(transformed).toEqual({
     statusCode: 200,
