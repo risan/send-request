@@ -19,7 +19,7 @@ const isJsonContentType = headers => {
  *
  * @param {ServerResponse} response
  * @param {Array} options.buffers
- * @param {String} options.encoding
+ * @param {String|Null} options.encoding
  * @return {Object}
  */
 const transformResponse = (
@@ -28,11 +28,13 @@ const transformResponse = (
 ) => {
   const { statusCode, statusMessage, headers } = response;
 
+  const body = Buffer.concat(buffers);
+
   const transformed = {
     statusCode,
     statusMessage,
     headers,
-    body: Buffer.concat(buffers).toString(encoding)
+    body: encoding === null ? body : body.toString(encoding)
   };
 
   if (isJsonContentType(headers)) {

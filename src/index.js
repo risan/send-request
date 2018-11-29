@@ -12,7 +12,7 @@ const transformResponse = require("./transform-response");
  * @param {String} url
  * @param {Object} options.body
  * @param {Boolean} options.json
- * @param {String} options.encoding
+ * @param {String|Null} options.encoding
  * @param {Object} options.config
  * @return {Promise}
  */

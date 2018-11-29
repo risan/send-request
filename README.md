@@ -151,7 +151,7 @@ sendRequest(url, [{
 * **`auth.password`** (optional *`String`*): The password for HTTP basic auth.
 * **`body`** (optional *`Object|FormData`*): The request body to send. It can be a plain JavaScript object or an instance of [`FormData`](https://github.com/form-data/form-data).
 * **`json`** (optional *Boolean*): Set to `true` if you want to send the request body with `application/json` content type. Default to `false`, which means that the request body will be sent as `application/x-www-form-urlencoded`. Note that you can still override the content type using the `headers` option.
-* **`encoding`** (optional *`String`*): The encoding to decode the incoming response.
+* **`encoding`** (optional *`String`*|*`Null`*): The encoding to decode the incoming response. If set to `null`, the response's body will be a `Buffer` instance.
 
 ### Returns
 

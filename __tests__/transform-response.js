@@ -37,6 +37,18 @@ test("it can convert body buffers to string", () => {
   });
 });
 
+test("it returns body buffers if encoding is null", () => {
+  const buff = Buffer.from("hello world");
+
+  const transformed = transformResponse(response, {
+    buffers: [buff],
+    encoding: null
+  });
+
+  expect(transformed.body).toBeInstanceOf(Buffer);
+  expect(transformed.body).toEqual(buff);
+});
+
 test("it can automatically convert response with JSON content type to object", () => {
   const data = { message: "hello world" };
   const body = JSON.stringify(data);
