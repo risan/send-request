@@ -1,35 +1,37 @@
 {
   "name": "send-request",
+  "version": "1.0.2",
   "description": "Lightweight HTTP client for Node",
-  "version": "1.0.1",
-  "license": "MIT",
-  "homepage": "https://github.com/risan/send-request#readme",
-  "author": {
-    "name": "Risan Bagja Pradana",
-    "email": "risanbagja@gmail.com",
-    "url": "https://bagja.net"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/risan/send-request.git"
-  },
-  "bugs": {
-    "url": "https://github.com/risan/send-request/issues"
-  },
   "keywords": [
     "http",
     "https",
     "http-client"
   ],
+  "homepage": "https://github.com/risan/send-request#readme",
+  "bugs": {
+    "url": "https://github.com/risan/send-request/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Risan Bagja Pradana",
+    "email": "risanbagja@gmail.com",
+    "url": "https://bagja.net"
+  },
   "main": "src/index.js",
-  "engines": {
-    "node": ">=8.0.0"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/risan/send-request.git"
   },
   "scripts": {
     "lint": "eslint ./",
     "lint-fix": "eslint ./ --fix",
     "prepublishOnly": "npm run lint && npm run test",
     "test": "jest"
+  },
+  "dependencies": {
+    "@risan/is-empty": "^1.0.0",
+    "@risan/is-plain-obj": "^1.0.4",
+    "str-to-stream": "1.x"
   },
   "devDependencies": {
     "eslint": "^5.9.0",
@@ -42,9 +44,7 @@
     "nock": "^10.0.2",
     "prettier": "^1.15.2"
   },
-  "dependencies": {
-    "@risan/is-empty": "^1.0.0",
-    "@risan/is-plain-obj": "^1.0.4",
-    "str-to-stream": "1.x"
+  "engines": {
+    "node": ">=8.0.0"
   }
 }
