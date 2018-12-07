@@ -1,25 +1,19 @@
 # Send Request
 
-[![Build Status](https://flat.badgen.net/travis/risan/send-request)](https://travis-ci.org/risan/send-request)
-[![Test Coverage](https://flat.badgen.net/codeclimate/coverage/risan/send-request)](https://codeclimate.com/github/risan/send-request)
-[![Maintainability](https://flat.badgen.net/codeclimate/maintainability/risan/send-request)](https://codeclimate.com/github/risan/send-request)
-[![Latest Stable Version](https://flat.badgen.net/npm/v/send-request)](https://www.npmjs.com/package/send-request)
-[![Node Version](https://flat.badgen.net/npm/node/send-request)](https://www.npmjs.com/package/send-request)
-[![Code Style: Prettier](https://flat.badgen.net/badge/code%20style/prettier/ff69b4)](https://github.com/prettier/prettier)
-[![License](https://flat.badgen.net/npm/license/send-request)](https://github.com/risan/send-request/blob/master/LICENSE)
+[![Build Status](https://badgen.net/travis/risan/send-request)](https://travis-ci.org/risan/send-request)
+[![Test Covarage](https://badgen.net/codecov/c/github/risan/send-request)](https://codecov.io/gh/risan/send-request)
+[![Greenkeeper](https://badges.greenkeeper.io/risan/send-request.svg)](https://greenkeeper.io)
+[![Latest Version](https://badgen.net/npm/v/send-request)](https://www.npmjs.com/package/send-request)
 
 Lightweight HTTP client for Node.
 
-## Install
+## Installation
 
 ```bash
 $ npm install send-request
-
-# Or if you use Yarn
-$ yarn add send-request
 ```
 
-## Quick Start
+## Usage
 
 Send HTTP GET request:
 
@@ -38,7 +32,7 @@ const sendRequest = require("send-request");
 })();
 ```
 
-## Recipe
+## Recipes
 
 ### Handling Error
 
@@ -179,4 +173,4 @@ It returns a `Promise` which when resolved contains a response object. Here's an
 
 ## License
 
-MIT © [Risan Bagja Pradana](https://bagja.net)
+[MIT](https://github.com/risan/send-request/blob/master/LICENSE) © [Risan Bagja Pradana](https://bagja.net)
