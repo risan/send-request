@@ -173,4 +173,4 @@ It returns a `Promise` which when resolved contains a response object. Here's an
 
 ## License
 
-[MIT](https://github.com/risan/send-request/blob/master/LICENSE) © [Risan Bagja Pradana](https://bagja.net)
+[MIT](https://github.com/risan/send-request/blob/master/LICENSE) © [Risan Bagja Pradana](https://risanb.com)

@@ -1,6 +1,6 @@
 {
   "name": "send-request",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Lightweight HTTP client for Node.",
   "keywords": [
     "http",
