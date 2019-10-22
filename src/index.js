@@ -33,7 +33,7 @@ const sendRequest = async (
 
   const client = options.protocol === "http:" ? http : https;
 
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const request = client.request(options, response => {
       const buffers = [];
 
