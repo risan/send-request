@@ -2,7 +2,6 @@
 
 [![Build Status](https://badgen.net/travis/risan/send-request)](https://travis-ci.org/risan/send-request)
 [![Test Covarage](https://badgen.net/codecov/c/github/risan/send-request)](https://codecov.io/gh/risan/send-request)
-[![Greenkeeper](https://badges.greenkeeper.io/risan/send-request.svg)](https://greenkeeper.io)
 [![Latest Version](https://badgen.net/npm/v/send-request)](https://www.npmjs.com/package/send-request)
 
 Lightweight HTTP client for Node.
